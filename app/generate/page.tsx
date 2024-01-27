@@ -18,7 +18,7 @@ function Page() {
   ];
 
   return (
-    <div className="bg-black h-screen flex flex-col justify-center items-center gap-4">
+    <div className="bg-black h-[calc(100vh-40px)] flex flex-col justify-center items-center gap-4">
       <div className="text-4xl text-slate-200">Generated Timetables</div>
       <div className="flex flex-row justify-around w-full gap-4">
         <div className="w-4/5">
