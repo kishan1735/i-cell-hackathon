@@ -73,7 +73,7 @@ function Page() {
   }
 
   return (
-    <div className="bg-black min-h-screen h-full flex justify-center items-center px-4">
+    <>
       <div className="bg-white px-10 py-4">
         <nav className="flex space-x-4 text-2xl text-slate-800 font-medium">
           <div
@@ -177,7 +177,7 @@ function Page() {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

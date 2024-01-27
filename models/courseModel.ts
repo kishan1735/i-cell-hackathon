@@ -5,6 +5,9 @@ const courseSet = new mongoose.Schema({
     type: [Object],
     default: [],
   },
+  userEmail: {
+    type: String,
+  },
 });
 
 const CourseSet =

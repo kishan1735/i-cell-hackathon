@@ -1,6 +1,8 @@
 import connectMongoDB from "@/lib/dbConnect";
 import CourseSet from "@/models/courseModel";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET(req: Request) {
   try {
@@ -20,9 +22,14 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const session = await getServerSession(authOptions);
     const data = await req.json();
     let courses;
-    if (data.length != 0) courses = await CourseSet.create({ courses: data });
+    if (data.length != 0)
+      courses = await CourseSet.create({
+        courses: data,
+        userEmail: session?.user?.email,
+      });
     if (!courses) {
       throw new Error("Courses could not be sent");
     }

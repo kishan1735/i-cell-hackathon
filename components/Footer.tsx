@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <div className="border-t-2 border-slate-900 bg-black flex flex-row text-center justify-center w-screen text-white text-xl py-2 gap-3">
+    <div className="border-t-2 border-slate-900 bg-slate-950 flex flex-row text-center justify-center w-screen text-white text-xl py-2 gap-3">
       <div>Powered by </div>
       <img
         className="h-6 mt-1"

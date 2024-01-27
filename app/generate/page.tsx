@@ -18,7 +18,7 @@ function Page() {
   ];
 
   return (
-    <div className="bg-black h-[calc(100vh-60px)] flex flex-col justify-center items-center gap-5">
+    <div className="bg-slate-950 flex flex-col justify-center items-center gap-5 pt-4 pb-8">
       <div className="text-4xl text-slate-200 py-1 mt-2">
         Generated Timetables
       </div>
