@@ -1,5 +1,14 @@
 "use client";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
+import AuthCheck from "@/components/AuthCheck";
 import { useEffect, useState } from "react";
 
 function Page() {
@@ -71,13 +80,13 @@ function Page() {
       setCourses([]);
     }
   }
-
+  async function handleShow() {}
   return (
-    <>
-      <div className="bg-white px-10 py-4">
-        <nav className="flex space-x-4 text-2xl text-slate-800 font-medium">
+    <AuthCheck>
+      <div className="bg-slate-800 border-slate-400 border px-10 py-4 text-slate-300">
+        <nav className="flex justify-center space-x-4 text-2xl text-slate-300 font-medium">
           <div
-            className="border-2 hover:bg-slate-200 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
+            className="border-[1.5px] hover:bg-slate-800 bg-slate-900 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
             onClick={() => {
               setState("Search");
             }}
@@ -85,7 +94,7 @@ function Page() {
             Search
           </div>
           <div
-            className="border-2 hover:bg-slate-200 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
+            className="border-[1.5px] hover:bg-slate-800 bg-slate-900 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
             onClick={() => {
               setState("Courses");
             }}
@@ -93,7 +102,7 @@ function Page() {
             Courses
           </div>
           <div
-            className="border-2 hover:bg-slate-200 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
+            className="border-[1.5px] hover:bg-slate-800 bg-slate-900 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
             onClick={() => {
               setState("Exams");
             }}
@@ -111,13 +120,17 @@ function Page() {
                   setSearch(e.target.value);
                 }}
                 placeholder="Search"
-                className="border-2 border-slate-400 py-1 px-2 text-center"
+                className="border-[1.5px] border-slate-400 text-xl bg-slate-900 py-1 px-2 text-center "
               />
-              <div className="flex flex-col text-center my-6 border-t-2">
+              <div
+                className={`flex flex-col text-center  ${
+                  results.length != 0 ? "border-t my-6" : ""
+                }`}
+              >
                 {results?.map((el: any, i: number) => {
                   return (
                     <div
-                      className="flex justify-center space-x-4 border-b-2 border-x-2 py-2 px-4 hover:bg-slate-200 cursor-pointer b"
+                      className="flex justify-center space-x-4 border-b border-x py-2 px-4 hover:bg-slate-950 cursor-pointer b"
                       key={i}
                       onClick={() => handleClick(el)}
                     >
@@ -131,16 +144,14 @@ function Page() {
           )}
           {state == "Courses" && (
             <div className="flex flex-col">
-              <div className="flex flex-col text-center my-6 border-t-2">
+              <div className="flex flex-col text-center my-6  border-slate-300">
                 {courses?.map((el: any, i: number) => {
                   return (
-                    <div
-                      className="flex justify-center space-x-4 border-b-2 border-x-2 py-2 px-4 hover:bg-slate-200 cursor-pointer b"
-                      key={i}
-                      onClick={() => handleClick(el)}
-                    >
-                      <p className="font-medium">{el.name}</p>
-                      <p>{el.code}</p>
+                    <div key={i} onClick={handleShow}>
+                      <div className="flex justify-center space-x-4 border-[1.5px] py-2 px-4 hover:bg-slate-950 cursor-pointer">
+                        <p className="font-medium">{el.name}</p>
+                        <p>{el.code}</p>
+                      </div>
                     </div>
                   );
                 })}
@@ -149,13 +160,12 @@ function Page() {
           )}
           {state == "Exams" && (
             <div className="flex flex-col">
-              <div className="flex flex-col text-center my-6 border-t-2">
+              <div className="flex flex-col text-center my-6 border-[1.5px]">
                 {courses?.map((el: any, i: number) => {
                   return (
                     <div
-                      className="flex justify-center space-x-4 border-b-2 border-x-2 py-2 px-4 hover:bg-slate-200 cursor-pointer b"
+                      className="flex justify-center border-slate-300 text-center space-x-4 px-4 py-1 hover:bg-slate-900 cursor-pointer text-xl"
                       key={i}
-                      onClick={() => handleClick(el)}
                     >
                       <p className="font-medium">{el.name}</p>
                       <p className="font-medium">
@@ -169,7 +179,7 @@ function Page() {
           )}
           {courses.length > 0 && (
             <button
-              className="bg-black text-white hover:scale-105 py-2 px-4"
+              className="bg-slate-900 border-[1.5px] border-slate-400 text-xl text-slate-300 hover:scale-105 py-2 px-4"
               onClick={handleSubmit}
             >
               Submit TimeTable
@@ -177,7 +187,7 @@ function Page() {
           )}
         </div>
       </div>
-    </>
+    </AuthCheck>
   );
 }
 

@@ -7,11 +7,11 @@ function page() {
       <div className="bg-white flex flex-col opacity-80 px-12 py-8 space-y-4 text-center">
         <div className="uppercase text-4xl ">Login to Get Started</div>
         <button
-          className="flex bg-black opacity-80 text-white p-2 space-x-2 justify-center hover:scale-105"
+          className="flex bg-slate-950 opacity-80 text-white p-2 space-x-2 justify-center hover:scale-105"
           onClick={() =>
             signIn(
               "google",
-              { callbackUrl: `http://localhost:3000/course` },
+              { callbackUrl: `http://localhost:3000` },
               { prompt: "login" }
             )
           }
