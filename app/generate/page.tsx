@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 function Page() {
   const [timetableSections, setTimetableSections] = useState([[]]);
+  const [timetableIndex, setTimetableIndex] = useState(0);
   const [ready, setReady] = useState(false);
   useEffect(() => {
     (async () => {
@@ -27,17 +28,29 @@ function Page() {
         <div className="flex flex-row justify-around w-full gap-4">
           <div className="w-4/5">
             <TooltipProvider>
-              <TimetableGrid timetableDetailsSections={timetableSections[0]} />
+              <TimetableGrid
+                timetableDetailsSections={timetableSections[timetableIndex]}
+              />
             </TooltipProvider>
           </div>
           <div className="flex flex-col items-center text-slate-200 w-1/5 pt-12 gap-5">
             <div className="text-2xl">Timetable 6</div>
             <div className="flex flex-row">
-              <ChevronLeft />
+              <ChevronLeft
+                onClick={() =>
+                  setTimetableIndex(Math.max(0, timetableIndex - 1))
+                }
+              />
               <div>
                 {timetableIndex + 1} / {timetableSections.length}
               </div>
-              <ChevronRight />
+              <ChevronRight
+                onClick={() =>
+                  setTimetableIndex(
+                    Math.min(timetableSections.length - 1, timetableIndex + 1)
+                  )
+                }
+              />
             </div>
             <Button>
               <div className="text-lg">Save Timetable</div>
