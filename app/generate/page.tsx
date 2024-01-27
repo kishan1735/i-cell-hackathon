@@ -1,22 +1,24 @@
 "use client";
 import AuthCheck from "@/components/AuthCheck";
 import { TimetableGrid } from "@/components/TimetableGrid";
+import { Spinner } from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 function Page() {
-  const sections = [
-    {
-      id: "1",
-      name: "Course",
-      roomTime: ["CS 1101:F102:M:1", "CS 1101:F102:S:2"],
-      courseId: "CS 1101",
-      type: "L",
-      number: 1,
-      instructors: ["Dr. A", "Dr. B"],
-    },
-  ];
+  const [timetableSections, setTimetableSections] = useState([[]]);
+  const [timetableIndex, setTimetableIndex] = useState(0);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/generate");
+      const { data } = await res.json();
+      setTimetableSections(data);
+      setReady(true);
+    })();
+  }, []);
 
   return (
     <AuthCheck>
