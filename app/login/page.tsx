@@ -11,7 +11,7 @@ function page() {
           onClick={() =>
             signIn(
               "google",
-              { callbackUrl: `http://localhost:3000` },
+              { callbackUrl: `http://localhost:3000/course` },
               { prompt: "login" }
             )
           }

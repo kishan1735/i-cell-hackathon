@@ -1,0 +1,12 @@
+import mongoose from "mongoose";
+
+const courseSet = new mongoose.Schema({
+  courses: {
+    type: [Object],
+    default: [],
+  },
+});
+
+const CourseSet =
+  mongoose.models.CourseSet || mongoose.model("CourseSet", courseSet);
+export default CourseSet;
