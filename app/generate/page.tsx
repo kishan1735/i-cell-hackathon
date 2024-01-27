@@ -18,8 +18,10 @@ function Page() {
   ];
 
   return (
-    <div className="bg-black h-[calc(100vh-40px)] flex flex-col justify-center items-center gap-4">
-      <div className="text-4xl text-slate-200">Generated Timetables</div>
+    <div className="bg-black h-[calc(100vh-40px)] flex flex-col justify-center items-center gap-5">
+      <div className="text-4xl text-slate-200 mt-[-30px]">
+        Generated Timetables
+      </div>
       <div className="flex flex-row justify-around w-full gap-4">
         <div className="w-4/5">
           <TooltipProvider>
@@ -34,8 +36,12 @@ function Page() {
             <ChevronRight />
           </div>
           <Button>
-            <div className="text-lg">Edit Sections</div>
+            <div className="text-lg">Save Timetable</div>
           </Button>
+          <Button>
+            <div className="text-lg">Edit Courses</div>
+          </Button>
+          {/* TODO: add metrics */}
         </div>
       </div>
     </div>
