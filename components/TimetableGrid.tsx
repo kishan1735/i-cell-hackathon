@@ -33,13 +33,14 @@ export function TimetableGrid({
     for (let i = 0; i < grid.length; i++) {
       grid[i] = null;
     }
+    console.log(timetableDetailsSections);
     for (let i = 0; i < timetableDetailsSections.length; i++) {
       for (let j = 0; j < timetableDetailsSections[i].roomTime.length; j++) {
         const [code, room, day, hour] =
           timetableDetailsSections[i].roomTime[j].split(":");
         const remainder = daysOfWeek.indexOf(day);
         const quotient = parseInt(hour) - 1;
-        grid[quotient + remainder * 11] = {
+        grid[quotient + remainder * 10] = {
           id: timetableDetailsSections[i].id,
           courseId: timetableDetailsSections[i].courseId,
           room: room,
@@ -54,7 +55,7 @@ export function TimetableGrid({
 
     return grid;
   }, [timetableDetailsSections]);
-
+  console.log(timetableGrid);
   return (
     <div className="ml-4 flex w-full">
       <div
@@ -115,7 +116,7 @@ export function TimetableGrid({
         >
           {timetableGrid.map((e, i) =>
             e !== null ? (
-              <Tooltip delayDuration={100} key={e.id}>
+              <Tooltip delayDuration={100} key={i}>
                 <TooltipTrigger asChild>
                   <div
                     className={`hover:bg-slate-500/90 cursor-pointer transition duration-200 ease-in-out bg-slate-600 rounded-md ${"pl-3 pb-2 pt-2"}`}
