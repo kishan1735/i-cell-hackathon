@@ -20,10 +20,6 @@ const userSchema = new mongoose.Schema({
   id: {
     type: String,
   },
-  subscriptions: {
-    type: [String],
-    default: [],
-  },
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
