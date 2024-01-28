@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { openai } from "@/lib/openai";
 import connectMongoDB from "@/lib/dbConnect";
 import CourseSet from "@/models/courseModel";
