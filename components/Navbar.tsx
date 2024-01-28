@@ -13,7 +13,7 @@ export function Navbar() {
         chronoX
       </Link>
       <Link href="/course">Course Selector</Link>
-      <div>Timetable Generator</div>
+      <Link href="/generate">Timetable Generator</Link>
       <div>Saved Timetables</div>
 
       <div className="flex flex-row justify-end flex-grow px-4">
