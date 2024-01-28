@@ -139,6 +139,7 @@ export function TimetableGrid({
                 className={`bg-slate-900 rounded-md h-fit pl-3 pt-20 ${
                   i >= 50 ? `` : `pb-2`
                 }`}
+                key={i}
               ></div>
             )
           )}

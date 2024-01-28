@@ -1,9 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { openai } from "@/lib/openai";
 import connectMongoDB from "@/lib/dbConnect";
 import CourseSet from "@/models/courseModel";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import { NextResponse } from "next/server";
 
 type ResponseData = {
@@ -24,7 +23,7 @@ function isClash(timetable: any[]) {
   return false;
 }
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session) {
     return NextResponse.json({ status: "error", message: "Unauthorised" });
@@ -63,7 +62,7 @@ export async function GET(req: NextApiRequest) {
   let fin = [];
   while (fin.length < 5) {
     courses = courses
-      .map((value) => ({ value, sort: Math.random() }))
+      .map((value: any) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
 

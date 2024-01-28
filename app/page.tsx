@@ -19,11 +19,7 @@ function Page() {
         onClick={() =>
           session
             ? {}
-            : signIn(
-                "google",
-                { callbackUrl: `http://localhost:3000` },
-                { prompt: "login" }
-              )
+            : signIn("google", { callbackUrl: `/` }, { prompt: "login" })
         }
       >
         {session ? "Enter" : "Login"}

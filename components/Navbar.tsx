@@ -25,7 +25,7 @@ export function Navbar() {
             </Avatar>
           </PopoverTrigger>
           <PopoverContent className="mt-2 mr-2 border-none w-32 flex flex-col gap-4 items-start bg-slate-700 text-slate-200">
-            <div>Profile</div>
+            <Link href="/profile">Profile</Link>
             <div onClick={() => signOut()} className="">
               Logout
             </div>
