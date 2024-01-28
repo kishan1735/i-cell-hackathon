@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import AuthCheck from "@/components/AuthCheck";
 import { TimetableGrid } from "@/components/TimetableGrid";
@@ -11,7 +10,7 @@ import Link from "next/link";
 import { time } from "console";
 
 function Page() {
-  const [timetableSections, setTimetableSections] = useState([]);
+  const [timetableSections, setTimetableSections] = useState<any>([]);
   const [timetableIndex, setTimetableIndex] = useState(0);
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -19,7 +18,7 @@ function Page() {
       const res = await fetch("/api/generate");
       let { data } = await res.json();
       console.log(data);
-      data.sort((a, b) => b.rating - a.rating);
+      data.sort((a: any, b: any) => b.rating - a.rating);
       setTimetableSections(data);
       setReady(true);
     })();
