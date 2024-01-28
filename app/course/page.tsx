@@ -263,7 +263,9 @@ function Page() {
                         </Dialog>
                         <Trash2
                           onClick={() =>
-                            setCourses(courses.filter((e) => e.id != el.id))
+                            setCourses(
+                              courses.filter((e: any) => e.id != el.id)
+                            )
                           }
                         />
                       </div>

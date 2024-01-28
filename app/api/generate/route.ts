@@ -3,7 +3,7 @@ import { openai } from "@/lib/openai";
 import connectMongoDB from "@/lib/dbConnect";
 import CourseSet from "@/models/courseModel";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import { NextResponse } from "next/server";
 
 type ResponseData = {
