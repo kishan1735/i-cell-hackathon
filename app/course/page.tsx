@@ -89,15 +89,18 @@ function Page() {
   }
   async function handleShow(el: any) {
     el.sections = select;
-    const updatedCourses = tempCourses.map((element: any) => {
+    const updatedCourses = courses.map((element: any) => {
       if (el.id == element.id) {
         return el;
       } else {
         return element;
       }
     });
+    console.log(updatedCourses);
     setTempCourses(updatedCourses);
+    setSelect([]);
   }
+  async function handleSelectionSelect(element: any) {}
   return (
     <AuthCheck>
       <div className="flex flex-col items-center px-10 text-slate-300">
@@ -135,6 +138,7 @@ function Page() {
                 type="text"
                 value={search}
                 onChange={(e) => {
+                  console.log(e.target.value);
                   setSearch(e.target.value);
                 }}
                 placeholder="Search..."
@@ -179,16 +183,24 @@ function Page() {
                             <DialogDescription>
                               <div className="border-t border-slate-800 mt-4">
                                 {el.sections.map((element: any, i: number) => {
-                                  setSelect(el.sections);
                                   return (
                                     <div
                                       key={i}
-                                      className="text-center flex space-x-2 justify-center border-x border-slate-800 border-b"
+                                      className="text-center flex space-x-2 justify-center border-x border-slate-800 border-b hover:bg-slate-800 hover:text-slate-200 cursor-pointer"
                                       onClick={() =>
-                                        setSelect((current: any) => {})
+                                        setSelect((sel: any) => {
+                                          console.log(sel);
+                                          const updated = sel.filter(
+                                            (sele: any) => sele.id != element.id
+                                          );
+                                          setSelect(() => [
+                                            ...updated,
+                                            element,
+                                          ]);
+                                        })
                                       }
                                     >
-                                      <p className="text-slate-800 text-lg">
+                                      <p className="font-medium text-lg">
                                         {el.name}
                                       </p>
                                       <p className="text-lg">

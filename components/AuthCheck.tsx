@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 export default function AuthCheck({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { data: session, status } = useSession();
-  console.log(status);
   if (status == "authenticated") return <>{children}</>;
   else if (status == "loading")
     return <div className="text-2xl">Loading... </div>;
