@@ -98,7 +98,11 @@ export async function GET(req: NextApiRequest) {
       console.log(timetable);
       console.log(isClash(timetable));
       if (!isClash(timetable)) {
-        fin.push(timetable);
+        let rating =
+          11 +
+          Math.random() -
+          timetable.reduce((acc, cur) => acc + cur.roomTime.length, 0) / 5;
+        fin.push({ timetable, rating });
       }
     } catch (err) {
       console.log(err);

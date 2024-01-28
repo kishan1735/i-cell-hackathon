@@ -4,12 +4,13 @@ import { TimetableGrid } from "@/components/TimetableGrid";
 import { Spinner } from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Award, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { time } from "console";
 
 function Page() {
-  const [timetableSections, setTimetableSections] = useState([[]]);
+  const [timetableSections, setTimetableSections] = useState([]);
   const [timetableIndex, setTimetableIndex] = useState(0);
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -32,7 +33,9 @@ function Page() {
             <div className="w-4/5">
               <TooltipProvider>
                 <TimetableGrid
-                  timetableDetailsSections={timetableSections[timetableIndex]}
+                  timetableDetailsSections={
+                    timetableSections[timetableIndex].timetable
+                  }
                 />
               </TooltipProvider>
             </div>
@@ -66,7 +69,12 @@ function Page() {
                   <Link href="/course">Change Courses</Link>
                 </div>
               </Button>
-              {/* TODO: add metrics */}
+              <br />
+              <Award className="self-center" size={36} />
+              <div className="text-xl">
+                OpenAI Rating:{" "}
+                {timetableSections[timetableIndex].rating.toFixed(2) ?? 4}
+              </div>
             </div>
           </div>
         ) : (
