@@ -26,28 +26,46 @@ function Page() {
         <div className="text-4xl text-slate-200 py-1 mt-2">
           Generated Timetables
         </div>
-        <div className="flex flex-row justify-around w-full gap-4">
-          <div className="w-4/5">
-            <TooltipProvider>
-              <TimetableGrid timetableDetailsSections={sections} />
-            </TooltipProvider>
-          </div>
-          <div className="flex flex-col items-center text-slate-200 w-1/5 pt-12 gap-5">
-            <div className="text-2xl">Timetable 6</div>
-            <div className="flex flex-row">
-              <ChevronLeft />
-              <div>6 / 50</div>
-              <ChevronRight />
+        {ready ? (
+          <div className="flex flex-row justify-around w-full gap-4">
+            <div className="w-4/5">
+              <TooltipProvider>
+                <TimetableGrid
+                  timetableDetailsSections={timetableSections[timetableIndex]}
+                />
+              </TooltipProvider>
             </div>
-            <Button>
-              <div className="text-lg">Save Timetable</div>
-            </Button>
-            <Button>
-              <div className="text-lg">Edit Courses</div>
-            </Button>
-            {/* TODO: add metrics */}
+            <div className="flex flex-col items-center text-slate-200 w-1/5 pt-12 gap-5">
+              <div className="text-2xl">Timetable {timetableIndex + 1}</div>
+              <div className="flex flex-row">
+                <ChevronLeft
+                  onClick={() =>
+                    setTimetableIndex(Math.max(0, timetableIndex - 1))
+                  }
+                />
+                <div>
+                  {timetableIndex + 1} / {timetableSections.length}
+                </div>
+                <ChevronRight
+                  onClick={() =>
+                    setTimetableIndex(
+                      Math.min(timetableSections.length - 1, timetableIndex + 1)
+                    )
+                  }
+                />
+              </div>
+              <Button>
+                <div className="text-lg">Save Timetable</div>
+              </Button>
+              <Button>
+                <div className="text-lg">Edit Courses</div>
+              </Button>
+              {/* TODO: add metrics */}
+            </div>
           </div>
-        </div>
+        ) : (
+          <Spinner />
+        )}
       </div>
     </AuthCheck>
   );
