@@ -16,7 +16,8 @@ function Page() {
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/generate");
-      const { data } = await res.json();
+      let { data } = await res.json();
+      data.sort((a, b) => b.rating - a.rating);
       setTimetableSections(data);
       setReady(true);
     })();
