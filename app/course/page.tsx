@@ -178,10 +178,14 @@ function Page() {
                             <DialogDescription>
                               <div className="border-t border-slate-800 mt-4">
                                 {el.sections.map((element: any, i: number) => {
+                                  setSelect(el.sections);
                                   return (
                                     <div
                                       key={i}
                                       className="text-center flex space-x-2 justify-center border-x border-slate-800 border-b"
+                                      onClick={() =>
+                                        setSelect((current: any) => {})
+                                      }
                                     >
                                       <p className="text-slate-800 text-lg">
                                         {el.name}
