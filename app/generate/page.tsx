@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 function Page() {
   const [timetableSections, setTimetableSections] = useState([[]]);
@@ -27,7 +28,7 @@ function Page() {
           Generated Timetables
         </div>
         {ready ? (
-          <div className="flex flex-row justify-around w-full gap-4">
+          <div className="flex flex-row justify-around w-full gap-10">
             <div className="w-4/5">
               <TooltipProvider>
                 <TimetableGrid
@@ -61,7 +62,9 @@ function Page() {
                 <div className="text-lg">Save Timetable</div>
               </Button>
               <Button>
-                <div className="text-lg">Edit Courses</div>
+                <div className="text-lg">
+                  <Link href="/course">Change Courses</Link>
+                </div>
               </Button>
               {/* TODO: add metrics */}
             </div>
