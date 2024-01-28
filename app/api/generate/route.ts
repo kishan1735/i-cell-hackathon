@@ -63,7 +63,7 @@ export async function GET(req: NextApiRequest) {
   let fin = [];
   while (fin.length < 5) {
     courses = courses
-      .map((value) => ({ value, sort: Math.random() }))
+      .map((value: any) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
 
