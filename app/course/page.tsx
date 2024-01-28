@@ -13,6 +13,7 @@ import AuthCheck from "@/components/AuthCheck";
 import { useEffect, useState } from "react";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
+import { Pencil, Trash2 } from "lucide-react";
 
 function Page() {
   const [state, setState] = useState("Search");
@@ -98,6 +99,7 @@ function Page() {
     });
     setTempCourses(updatedCourses);
   }
+
   return (
     <AuthCheck>
       <div className="flex flex-col items-center px-10 text-slate-300">
@@ -166,56 +168,71 @@ function Page() {
                 {courses?.map((el: any, i: number) => {
                   return (
                     <div key={i}>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <div className="flex justify-center space-x-4  py-2 px-4 hover:bg-slate-950 cursor-pointer">
-                            <p className="font-medium">{el.name}</p>
-                            <p>{el.code}</p>
-                          </div>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-md">
-                          <DialogHeader>
-                            <DialogTitle>Choose Sections</DialogTitle>
-                            <DialogDescription>
-                              <div className="border-t border-slate-800 mt-4">
-                                {el.sections.map((element: any, i: number) => {
-                                  setSelect(el.sections);
-                                  return (
-                                    <div
-                                      key={i}
-                                      className="text-center flex space-x-2 justify-center border-x border-slate-800 border-b"
-                                      onClick={() =>
-                                        setSelect((current: any) => {})
-                                      }
-                                    >
-                                      <p className="text-slate-800 text-lg">
-                                        {el.name}
-                                      </p>
-                                      <p className="text-lg">
-                                        {element.type}
-                                        {element.number}
-                                      </p>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </DialogDescription>
-                          </DialogHeader>
-                          <DialogFooter className="sm:justify-start">
-                            <DialogClose asChild>
-                              <Button
-                                type="button"
-                                variant="secondary"
-                                onClick={() => {
-                                  handleShow(el);
-                                }}
-                              >
-                                Save Changes
-                              </Button>
-                            </DialogClose>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
+                      <div className="flex justify-center text-lg space-x-4 border border-slate-500/50 rounded-lg py-3 my-1 px-4 hover:bg-slate-950 cursor-pointer gap-2">
+                        <p className="font-medium">{el.name}</p>
+                        <p className="text-slate-400">{el.code}</p>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Pencil />
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-md bg-slate-900 border-0 px-2 overflow-y-scroll max-h-[80vh]">
+                            <DialogHeader>
+                              <DialogTitle className="text-white px-2">
+                                {el.name} - {el.code}
+                              </DialogTitle>
+                              <DialogDescription>
+                                <div className="border-t border-slate-800 mt-4 overflow-scroll">
+                                  {el.sections.map(
+                                    (element: any, i: number) => {
+                                      return (
+                                        <div
+                                          key={i}
+                                          className="text-center flex text-lg space-x-2 justify-between p-2 items-center hover:bg-slate-800 rounded-lg"
+                                        >
+                                          <p className="text-lg w-fit text-slate-400 font-semibold">
+                                            {element.type}
+                                            {element.number}
+                                          </p>
+                                          <div className="flex flex-col items-center grow">
+                                            <p className="text-slate-400 w-72 font-semibold truncate break-words whitespace-nowrap">
+                                              {element.instructors.join(", ")}
+                                            </p>
+                                            <p className="text-slate-550">
+                                              {element.roomTime
+                                                .map(
+                                                  (e: string) =>
+                                                    e.split(":")[1] +
+                                                    " " +
+                                                    e.split(":")[2] +
+                                                    " " +
+                                                    e.split(":")[3]
+                                                )
+                                                .join(", ")}
+                                            </p>
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  )}
+                                </div>
+                              </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter className="sm:justify-start">
+                              <DialogClose asChild>
+                                <Button
+                                  type="button"
+                                  variant="secondary"
+                                  onClick={() => {
+                                    handleShow(el);
+                                  }}
+                                >
+                                  Save Changes
+                                </Button>
+                              </DialogClose>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                     </div>
                   );
                 })}
@@ -243,10 +260,10 @@ function Page() {
           )}
           {courses.length > 0 && (
             <button
-              className="bg-slate-900  border-slate-400 text-xl text-slate-300 hover:scale-105 py-2 px-4"
+              className="bg-slate-900 rounded-lg border-slate-200 text-2xl font-regular text-slate-300 hover:scale-105 py-2 px-4"
               onClick={handleSubmit}
             >
-              Submit TimeTable
+              Generate Timetable
             </button>
           )}
         </div>
