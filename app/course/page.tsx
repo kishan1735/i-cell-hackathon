@@ -198,10 +198,7 @@ function Page() {
                                                 (sele: any) =>
                                                   sele.id != element.id
                                               );
-                                              setSelect(() => [
-                                                ...updated,
-                                                element,
-                                              ]);
+                                              return [...updated, element];
                                             })
                                           }
                                         >
