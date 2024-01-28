@@ -20,7 +20,7 @@ export function Navbar() {
         <Popover>
           <PopoverTrigger asChild>
             <Avatar>
-              <AvatarImage src={session?.user?.image} />
+              <AvatarImage src={session?.user?.image ?? ""} />
               <AvatarFallback className="text-black">?</AvatarFallback>
             </Avatar>
           </PopoverTrigger>
