@@ -24,7 +24,7 @@ function isClash(timetable: any[]) {
   return false;
 }
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session) {
     return NextResponse.json({ status: "error", message: "Unauthorised" });
