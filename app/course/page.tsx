@@ -20,6 +20,7 @@ function Page() {
   const [tempCourses, setTempCourses] = useState<any>([]);
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<any>([]);
+  const [select, setSelect] = useState<any>([]);
   useEffect(
     function () {
       async function getAllCourses() {
@@ -39,7 +40,7 @@ function Page() {
               data1.data.length != 0 &&
               search.length >= 2
             ) {
-              setResults((current: any) => [...current, el]);
+              setResults((current: Array<Object>) => [...current, el]);
             }
           });
         }
@@ -86,7 +87,17 @@ function Page() {
       setTempCourses([]);
     }
   }
-  async function handleShow() {}
+  async function handleShow(el: any) {
+    el.sections = select;
+    const updatedCourses = tempCourses.map((element: any) => {
+      if (el.id == element.id) {
+        return el;
+      } else {
+        return element;
+      }
+    });
+    setTempCourses(updatedCourses);
+  }
   return (
     <AuthCheck>
       <div className="flex flex-col items-center px-10 text-slate-300">
@@ -191,7 +202,9 @@ function Page() {
                               <Button
                                 type="button"
                                 variant="secondary"
-                                onClick={handleShow}
+                                onClick={() => {
+                                  handleShow(el);
+                                }}
                               >
                                 Save Changes
                               </Button>
