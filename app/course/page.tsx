@@ -232,6 +232,11 @@ function Page() {
                             </DialogFooter>
                           </DialogContent>
                         </Dialog>
+                        <Trash2
+                          onClick={() =>
+                            setCourses(courses.filter((e) => e.id != el.id))
+                          }
+                        />
                       </div>
                     </div>
                   );
