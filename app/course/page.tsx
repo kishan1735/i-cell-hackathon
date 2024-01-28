@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -10,6 +11,8 @@ import {
 
 import AuthCheck from "@/components/AuthCheck";
 import { useEffect, useState } from "react";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { Button } from "@/components/ui/button";
 
 function Page() {
   const [state, setState] = useState("Search");
@@ -148,10 +151,30 @@ function Page() {
                 {courses?.map((el: any, i: number) => {
                   return (
                     <div key={i} onClick={handleShow}>
-                      <div className="flex justify-center space-x-4 border-[1.5px] py-2 px-4 hover:bg-slate-950 cursor-pointer">
-                        <p className="font-medium">{el.name}</p>
-                        <p>{el.code}</p>
-                      </div>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <div className="flex justify-center space-x-4 border-[1.5px] py-2 px-4 hover:bg-slate-950 cursor-pointer">
+                            <p className="font-medium">{el.name}</p>
+                            <p>{el.code}</p>
+                          </div>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-md">
+                          <DialogHeader>
+                            <DialogTitle>Share link</DialogTitle>
+                            <DialogDescription>
+                              Anyone who has this link will be able to view
+                              this.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <DialogFooter className="sm:justify-start">
+                            <DialogClose asChild>
+                              <Button type="button" variant="secondary">
+                                Close
+                              </Button>
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   );
                 })}
