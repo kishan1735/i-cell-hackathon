@@ -40,7 +40,10 @@ function Page() {
               <div className="flex flex-row">
                 <ChevronLeft
                   onClick={() =>
-                    setTimetableIndex(Math.max(0, timetableIndex - 1))
+                    setTimetableIndex(
+                      (timetableIndex - 1 + timetableSections.length) %
+                        timetableSections.length
+                    )
                   }
                 />
                 <div>
@@ -49,7 +52,7 @@ function Page() {
                 <ChevronRight
                   onClick={() =>
                     setTimetableIndex(
-                      Math.min(timetableSections.length - 1, timetableIndex + 1)
+                      (timetableIndex + 1) % timetableSections.length
                     )
                   }
                 />
