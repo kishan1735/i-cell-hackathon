@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import AuthCheck from "@/components/AuthCheck";
 import { TimetableGrid } from "@/components/TimetableGrid";

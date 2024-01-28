@@ -8,7 +8,7 @@ function Page() {
     <AuthCheck>
       <div className="bg-slate-950 text-slate-300   flex flex-col space-y-4 text-xl border-[1.5px] border-slate-400 p-8">
         <img
-          src={session?.user?.image}
+          src={session?.user?.image ?? ""}
           className="h-16 w-16 mx-auto rounded-full"
         />
         <div className="flex space-x-4 ">
