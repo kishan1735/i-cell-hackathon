@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     let courses;
     if (data.length != 0)
       courses = await CourseSet.create({
-        courses: data,
+        courses: data.courseset,
         userEmail: session?.user?.email,
       });
     if (!courses) {
