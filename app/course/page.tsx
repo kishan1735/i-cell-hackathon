@@ -89,10 +89,11 @@ function Page() {
   async function handleShow() {}
   return (
     <AuthCheck>
-      <div className="bg-slate-800 border-slate-400 border px-10 py-4 text-slate-300">
-        <nav className="flex justify-center space-x-4 text-2xl text-slate-300 font-medium">
+      <div className="flex flex-col items-center px-10 text-slate-300">
+        <div className="text-5xl font-medium my-8">Add Courses</div>
+        <nav className="flex justify-center space-x-4 text-2xl bg-slate-800 rounded-lg text-slate-300 font-medium">
           <div
-            className="border-[1.5px] hover:bg-slate-800 bg-slate-900 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
+            className="hover:bg-slate-900  cursor-pointer border-slate-400/30 rounded-lg px-4 py-2"
             onClick={() => {
               setState("Search");
             }}
@@ -100,7 +101,7 @@ function Page() {
             Search
           </div>
           <div
-            className="border-[1.5px] hover:bg-slate-800 bg-slate-900 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
+            className=" hover:bg-slate-900  cursor-pointer border-slate-400 rounded-lg px-4 py-2"
             onClick={() => {
               setState("Courses");
             }}
@@ -108,7 +109,7 @@ function Page() {
             Courses
           </div>
           <div
-            className="border-[1.5px] hover:bg-slate-800 bg-slate-900 cursor-pointer border-slate-400 rounded-xl px-2 py-1"
+            className=" hover:bg-slate-900 cursor-pointer border-slate-400 rounded-lg px-4 py-2"
             onClick={() => {
               setState("Exams");
             }}
@@ -116,7 +117,7 @@ function Page() {
             Exams
           </div>
         </nav>
-        <div className="flex flex-col py-4 items-center">
+        <div className="flex flex-col py-4 items-center gap-2">
           {state == "Search" && (
             <div className="flex flex-col">
               <input
@@ -125,23 +126,23 @@ function Page() {
                 onChange={(e) => {
                   setSearch(e.target.value);
                 }}
-                placeholder="Search"
-                className="border-[1.5px] border-slate-400 text-xl bg-slate-900 py-1 px-2 text-center "
+                placeholder="Search..."
+                className="rounded-lg border-slate-400 text-xl bg-slate-900 py-1 mt-2 px-2 text-center "
               />
               <div
-                className={`flex flex-col text-center  ${
-                  results.length != 0 ? "border-t my-6" : ""
+                className={`flex flex-col text-center border-slate-500  ${
+                  results.length != 0 ? "rounded-lg my-6" : ""
                 }`}
               >
                 {results?.map((el: any, i: number) => {
                   return (
                     <div
-                      className="flex justify-center space-x-4 border-b border-x py-2 px-4 hover:bg-slate-950 cursor-pointer b"
+                      className="flex justify-between space-x-4 border-slate-500 my-1 border-y border-x py-4 px-4 hover:bg-slate-800 cursor-pointer rounded-lg"
                       key={i}
                       onClick={() => handleClick(el)}
                     >
                       <p className="font-medium">{el.name}</p>
-                      <p>{el.code}</p>
+                      <p className="text-slate-400">{el.code}</p>
                     </div>
                   );
                 })}
@@ -156,7 +157,7 @@ function Page() {
                     <div key={i}>
                       <Dialog>
                         <DialogTrigger asChild>
-                          <div className="flex justify-center space-x-4 border-[1.5px] py-2 px-4 hover:bg-slate-950 cursor-pointer">
+                          <div className="flex justify-center space-x-4  py-2 px-4 hover:bg-slate-950 cursor-pointer">
                             <p className="font-medium">{el.name}</p>
                             <p>{el.code}</p>
                           </div>
@@ -206,7 +207,7 @@ function Page() {
           )}
           {state == "Exams" && (
             <div className="flex flex-col">
-              <div className="flex flex-col text-center my-6 border-[1.5px]">
+              <div className="flex flex-col text-center my-6 ">
                 {courses?.map((el: any, i: number) => {
                   return (
                     <div
@@ -225,7 +226,7 @@ function Page() {
           )}
           {courses.length > 0 && (
             <button
-              className="bg-slate-900 border-[1.5px] border-slate-400 text-xl text-slate-300 hover:scale-105 py-2 px-4"
+              className="bg-slate-900  border-slate-400 text-xl text-slate-300 hover:scale-105 py-2 px-4"
               onClick={handleSubmit}
             >
               Submit TimeTable
