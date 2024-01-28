@@ -14,8 +14,10 @@ import { useEffect, useState } from "react";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function Page() {
+  const router = useRouter();
   const [state, setState] = useState("Search");
   const [courses, setCourses] = useState<any>([]);
   const [tempCourses, setTempCourses] = useState<any>([]);
@@ -80,6 +82,7 @@ function Page() {
     const data = await res.json();
     console.log(data);
     if (data.status == "success") {
+      router.push("/generate");
       setState("");
       setSearch("");
       setResults([]);

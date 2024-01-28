@@ -25,15 +25,15 @@ function isClash(timetable: any[]) {
 }
 
 export async function GET(req: NextApiRequest) {
-  // const session = await getServerSession(req, res, authOptions);
-  // if (!session) {
-  //   return res.status(401).json({ message: "Unauthorized" });
-  // }
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ status: "error", message: "Unauthorised" });
+  }
   // get sections from DB
   await connectMongoDB();
   let courses = (
     await CourseSet.findOne({
-      userEmail: "f20220022@hyderabad.bits-pilani.ac.in",
+      userEmail: session?.user?.email,
     })
   ).courses;
 
