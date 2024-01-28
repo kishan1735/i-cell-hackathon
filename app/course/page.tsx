@@ -90,14 +90,16 @@ function Page() {
   }
   async function handleShow(el: any) {
     el.sections = select;
-    const updatedCourses = tempCourses.map((element: any) => {
+    const updatedCourses = courses.map((element: any) => {
       if (el.id == element.id) {
         return el;
       } else {
         return element;
       }
     });
+    console.log(updatedCourses);
     setTempCourses(updatedCourses);
+    setSelect([]);
   }
 
   return (
@@ -137,6 +139,7 @@ function Page() {
                 type="text"
                 value={search}
                 onChange={(e) => {
+                  console.log(e.target.value);
                   setSearch(e.target.value);
                 }}
                 placeholder="Search..."
@@ -188,6 +191,19 @@ function Page() {
                                         <div
                                           key={i}
                                           className="text-center flex text-lg space-x-2 justify-between p-2 items-center hover:bg-slate-800 rounded-lg"
+                                          onClick={() =>
+                                            setSelect((sel: any) => {
+                                              console.log(sel);
+                                              const updated = sel.filter(
+                                                (sele: any) =>
+                                                  sele.id != element.id
+                                              );
+                                              setSelect(() => [
+                                                ...updated,
+                                                element,
+                                              ]);
+                                            })
+                                          }
                                         >
                                           <p className="text-lg w-fit text-slate-400 font-semibold">
                                             {element.type}
