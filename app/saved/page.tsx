@@ -10,14 +10,14 @@ import Link from "next/link";
 import { time } from "console";
 
 function Page() {
-  const [timetableSections, setTimetableSections] = useState([]);
+  const [timetableSections, setTimetableSections] = useState<any>([]);
   const [timetableIndex, setTimetableIndex] = useState(0);
   const [ready, setReady] = useState(false);
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/saved");
       let { data } = await res.json();
-      data.sort((a, b) => b.rating - a.rating);
+      data.sort((a: any, b: any) => b.rating - a.rating);
       console.log(data);
       setTimetableSections(data);
       setReady(true);
