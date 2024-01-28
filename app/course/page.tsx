@@ -52,7 +52,6 @@ function Page() {
   );
 
   async function handleClick(el: any) {
-    console.log(el.id);
     const res = await fetch(`/api/course/${el.id}`, {
       headers: { "Content-type": "application/json" },
     });
@@ -72,11 +71,11 @@ function Page() {
     }
   }
   async function handleSubmit() {
-    const requestBody = { courseset: courses };
+    const requestBody = { courseset: tempCourses };
     const res = await fetch("/api/course", {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify(courses),
+      body: JSON.stringify(requestBody),
     });
     const data = await res.json();
     console.log(data);
@@ -89,14 +88,16 @@ function Page() {
     }
   }
   async function handleShow(el: any) {
-    el.sections = select;
+    const clone = JSON.parse(JSON.stringify(el));
+    clone.sections = select;
     const updatedCourses = courses.map((element: any) => {
-      if (el.id == element.id) {
-        return el;
+      if (clone.id == element.id) {
+        return clone;
       } else {
         return element;
       }
     });
+    console.log(courses);
     console.log(updatedCourses);
     setTempCourses(updatedCourses);
     setSelect([]);
@@ -190,7 +191,13 @@ function Page() {
                                       return (
                                         <div
                                           key={i}
-                                          className="text-center flex text-lg space-x-2 justify-between p-2 items-center hover:bg-slate-800 rounded-lg"
+                                          className={`text-center flex text-lg space-x-2 justify-between p-2 items-center hover:bg-slate-700 rounded-lg cursor-pointer ${
+                                            select.filter((selected: any) => {
+                                              return selected.id == element.id;
+                                            }).length != 0
+                                              ? "bg-slate-700"
+                                              : ""
+                                          }`}
                                           onClick={() =>
                                             setSelect((sel: any) => {
                                               console.log(sel);
@@ -198,7 +205,13 @@ function Page() {
                                                 (sele: any) =>
                                                   sele.id != element.id
                                               );
+                                              //   const filtered = sel.filter(
+                                              //     (sele: any) =>
+                                              //       sele.id == element.id
+                                              //   );
+                                              //   if (filtered.length == 0)
                                               return [...updated, element];
+                                              //   else return [...updated];
                                             })
                                           }
                                         >

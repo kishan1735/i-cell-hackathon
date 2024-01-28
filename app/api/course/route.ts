@@ -28,7 +28,8 @@ export async function POST(req: Request) {
     if (data.length != 0)
       courses = await CourseSet.findOneAndUpdate(
         { userEmail: session?.user?.email },
-        { courses: data }
+        { courses: data.courseset },
+        { upsert: true }
       );
     if (!courses) {
       throw new Error("Courses could not be sent");
