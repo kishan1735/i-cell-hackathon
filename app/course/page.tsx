@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 function Page() {
   const [state, setState] = useState("Search");
   const [courses, setCourses] = useState<any>([]);
+  const [tempCourses, setTempCourses] = useState<any>([]);
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<any>([]);
   useEffect(
@@ -61,6 +62,7 @@ function Page() {
       console.log(filter1);
       if (filter1.length == 0) {
         setCourses((current: any) => [...current, data1.data]);
+        setTempCourses((current: any) => [...current, data1.data]);
         setState("Courses");
         setSearch("");
         setResults([]);
@@ -81,6 +83,7 @@ function Page() {
       setSearch("");
       setResults([]);
       setCourses([]);
+      setTempCourses([]);
     }
   }
   async function handleShow() {}
@@ -150,7 +153,7 @@ function Page() {
               <div className="flex flex-col text-center my-6  border-slate-300">
                 {courses?.map((el: any, i: number) => {
                   return (
-                    <div key={i} onClick={handleShow}>
+                    <div key={i}>
                       <Dialog>
                         <DialogTrigger asChild>
                           <div className="flex justify-center space-x-4 border-[1.5px] py-2 px-4 hover:bg-slate-950 cursor-pointer">
@@ -160,16 +163,36 @@ function Page() {
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-md">
                           <DialogHeader>
-                            <DialogTitle>Share link</DialogTitle>
+                            <DialogTitle>Choose Sections</DialogTitle>
                             <DialogDescription>
-                              Anyone who has this link will be able to view
-                              this.
+                              <div className="border-t border-slate-800 mt-4">
+                                {el.sections.map((element: any, i: number) => {
+                                  return (
+                                    <div
+                                      key={i}
+                                      className="text-center flex space-x-2 justify-center border-x border-slate-800 border-b"
+                                    >
+                                      <p className="text-slate-800 text-lg">
+                                        {el.name}
+                                      </p>
+                                      <p className="text-lg">
+                                        {element.type}
+                                        {element.number}
+                                      </p>
+                                    </div>
+                                  );
+                                })}
+                              </div>
                             </DialogDescription>
                           </DialogHeader>
                           <DialogFooter className="sm:justify-start">
                             <DialogClose asChild>
-                              <Button type="button" variant="secondary">
-                                Close
+                              <Button
+                                type="button"
+                                variant="secondary"
+                                onClick={handleShow}
+                              >
+                                Save Changes
                               </Button>
                             </DialogClose>
                           </DialogFooter>
