@@ -4,11 +4,13 @@ import { TimetableGrid } from "@/components/TimetableGrid";
 import { Spinner } from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Award, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { time } from "console";
 
 function Page() {
-  const [timetableSections, setTimetableSections] = useState([[]]);
+  const [timetableSections, setTimetableSections] = useState([]);
   const [timetableIndex, setTimetableIndex] = useState(0);
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -27,11 +29,13 @@ function Page() {
           Generated Timetables
         </div>
         {ready ? (
-          <div className="flex flex-row justify-around w-full gap-4">
+          <div className="flex flex-row justify-around w-full gap-10">
             <div className="w-4/5">
               <TooltipProvider>
                 <TimetableGrid
-                  timetableDetailsSections={timetableSections[timetableIndex]}
+                  timetableDetailsSections={
+                    timetableSections[timetableIndex].timetable
+                  }
                 />
               </TooltipProvider>
             </div>
@@ -40,7 +44,10 @@ function Page() {
               <div className="flex flex-row">
                 <ChevronLeft
                   onClick={() =>
-                    setTimetableIndex(Math.max(0, timetableIndex - 1))
+                    setTimetableIndex(
+                      (timetableIndex - 1 + timetableSections.length) %
+                        timetableSections.length
+                    )
                   }
                 />
                 <div>
@@ -49,7 +56,7 @@ function Page() {
                 <ChevronRight
                   onClick={() =>
                     setTimetableIndex(
-                      Math.min(timetableSections.length - 1, timetableIndex + 1)
+                      (timetableIndex + 1) % timetableSections.length
                     )
                   }
                 />
@@ -58,9 +65,16 @@ function Page() {
                 <div className="text-lg">Save Timetable</div>
               </Button>
               <Button>
-                <div className="text-lg">Edit Courses</div>
+                <div className="text-lg">
+                  <Link href="/course">Change Courses</Link>
+                </div>
               </Button>
-              {/* TODO: add metrics */}
+              <br />
+              <Award className="self-center" size={36} />
+              <div className="text-xl">
+                OpenAI Rating:{" "}
+                {timetableSections[timetableIndex].rating.toFixed(2) ?? 4}
+              </div>
             </div>
           </div>
         ) : (

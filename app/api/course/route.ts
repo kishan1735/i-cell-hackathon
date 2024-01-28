@@ -26,10 +26,11 @@ export async function POST(req: Request) {
     const data = await req.json();
     let courses;
     if (data.length != 0)
-      courses = await CourseSet.create({
-        courses: data.courseset,
-        userEmail: session?.user?.email,
-      });
+      courses = await CourseSet.findOneAndUpdate(
+        { userEmail: session?.user?.email },
+        { courses: data.courseset },
+        { upsert: true }
+      );
     if (!courses) {
       throw new Error("Courses could not be sent");
     }
