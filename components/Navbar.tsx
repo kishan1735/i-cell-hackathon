@@ -14,10 +14,9 @@ export function Navbar() {
       </Link>
       <Link href="/course">Course Selector</Link>
       <Link href="/generate">Timetable Generator</Link>
-      <div>Saved Timetables</div>
+      <Link href="/saved">Saved Timetables</Link>
 
       <div className="flex flex-row justify-end flex-grow px-4">
-        {/* TODO: show user Google avatar */}
         <Popover>
           <PopoverTrigger asChild>
             <Avatar>

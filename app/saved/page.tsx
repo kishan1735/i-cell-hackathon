@@ -15,31 +15,26 @@ function Page() {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/generate");
+      const res = await fetch("/api/saved");
       let { data } = await res.json();
-      console.log(data);
       data.sort((a, b) => b.rating - a.rating);
+      console.log(data);
       setTimetableSections(data);
       setReady(true);
     })();
   }, []);
 
-  async function saveTimetable() {
-    const timetable = timetableSections[timetableIndex].timetable;
-    const rating = timetableSections[timetableIndex].rating;
-    await fetch("/api/saved", {
-      method: "POST",
-      body: JSON.stringify({ timetable, rating }),
-    });
-  }
-
   return (
     <AuthCheck>
       <div className="bg-slate-950 flex flex-col justify-center items-center gap-5 pt-4 pb-8">
         <div className="text-4xl text-slate-200 py-1 mt-2">
-          Generated Timetables
+          Saved Timetables
         </div>
-        {ready ? (
+        {timetableSections.length == 0 ? (
+          <div className="text-2xl text-slate-400 py-1 mt-2">
+            No saved timetables...
+          </div>
+        ) : ready ? (
           <div className="flex flex-row justify-around w-full gap-10">
             <div className="w-4/5">
               <TooltipProvider>
@@ -72,16 +67,9 @@ function Page() {
                   }
                 />
               </div>
-              <Button>
-                <div className="text-lg" onClick={() => saveTimetable()}>
-                  Save Timetable
-                </div>
-              </Button>
-              <Button>
-                <div className="text-lg">
-                  <Link href="/course">Change Courses</Link>
-                </div>
-              </Button>
+              {/* <Button>
+                <div className="text-lg">Save Timetable</div>
+              </Button> */}
               <br />
               <Award className="self-center" size={36} />
               <div className="text-xl">
